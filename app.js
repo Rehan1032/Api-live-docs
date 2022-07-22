@@ -5,7 +5,7 @@ dotenv.config();
 let port = process.env.PORT || 7800;
 let mongo = require('mongodb');
 let MongoClient = mongo.MongoClient;
-let MongoUrl= process.env.MongoLiveUrl;
+let MongoUrl= "mongodb+srv://rehan321:test321@cluster0.5fw4xxl.mongodb.net/?retryWrites=true&w=majority"
 let db;
 
 app.get('/',(req,res)=>{
