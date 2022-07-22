@@ -3,28 +3,28 @@ page1
 
 ///// Category/////
 
-http://localhost:9875/category
+https://nodeapi321.herokuapp.com/category
 
 
 
 ////// Subcategory///////
+https://nodeapi321.herokuapp.com/Subcategory
 
-http://localhost:9875/Subcategory
 
 
 
 ////// Product//////////
 
-http://localhost:9875/product
+https://nodeapi321.herokuapp.com/product
 
 
 ////// carousel///////
-http://localhost:9875/carousel
+https://nodeapi321.herokuapp.com/carousel
 
 
 page 2
 
 //////  snack store ///////
 
-http://localhost:9875/snacks
+https://nodeapi321.herokuapp.com/snacks
 
