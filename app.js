@@ -8,19 +8,16 @@ let mongo = require('mongodb');
 let cors = require('cors')
 let MongoClient = mongo.MongoClient;
 let bodyParser = require('body-parser')
-let MongoUrl = "mongodb+srv://rehan321:test321@cluster0.5fw4xxl.mongodb.net/?retryWrites=true&w=majority"
+let mongoUrl = "mongodb+srv://rehan321:test321@cluster0.5fw4xxl.mongodb.net/?retryWrites=true&w=majority";
 let db;
 
 app.use(morgan('common'))
-app.use(bodyParser.urlencoded({
-    extended: true
-}));
+app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 app.use(cors());
 
-
-app.get('/', (req, res) => {
-    res.send('Hii From express')
+app.get('/',(req,res)=>{
+    res.send('Hiii From Express')
 })
 
 app.get('/category', (req, res) => {
@@ -30,14 +27,6 @@ app.get('/category', (req, res) => {
     })
 
 })
-
-
-// app.get('/Subcategory', (req, res) => {
-//     db.collection('Subcategory').find().toArray((err, result) => {
-//         if (err) throw err;
-//         res.send(result)
-//     })
-// })
 
 app.get('/Subcategory',(req,res) => {
     let query = {}
@@ -55,15 +44,6 @@ app.get('/Subcategory',(req,res) => {
         res.send(result)
     })
 })
-
-// app.get('/product', (req, res) => {
-//     db.collection('product').find().toArray((err, result) => {
-//         if (err) throw err;
-//         res.send(result)
-//     })
-
-// })
-
 
 app.get('/product',(req,res) => {
     let query = {}
@@ -90,6 +70,7 @@ app.get('/Carousel', (req, res) => {
 
 })
 
+
 app.get('/snacks', (req, res) => {
     db.collection('Carousel').find().toArray((err, result) => {
         if (err) throw err;
@@ -98,9 +79,8 @@ app.get('/snacks', (req, res) => {
 
 })
 
-
 // connection with db
-MongoClient.connect(MongoUrl, (err, client) => {
+MongoClient.connect(mongoUrl, (err, client) => {
     if (err) console.log(`Error While Connecting`);
     db = client.db('MyProject2');
     app.listen(port, () => {
