@@ -1,67 +1,109 @@
 let express = require('express');
 let app = express();
+let morgan = require('morgan');
 let dotenv = require('dotenv');
 dotenv.config();
 let port = process.env.PORT || 7800;
 let mongo = require('mongodb');
+let cors = require('cors')
 let MongoClient = mongo.MongoClient;
-let MongoUrl= "mongodb+srv://rehan321:test321@cluster0.5fw4xxl.mongodb.net/?retryWrites=true&w=majority"
+let bodyParser = require('body-parser')
+let MongoUrl = "mongodb+srv://rehan321:test321@cluster0.5fw4xxl.mongodb.net/?retryWrites=true&w=majority"
 let db;
 
-app.get('/',(req,res)=>{
+app.use(morgan('common'))
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+app.use(bodyParser.json());
+app.use(cors());
+
+
+app.get('/', (req, res) => {
     res.send('Hii From express')
 })
 
-app.get('/category',(req,res)=>{
-    db.collection('category').find().toArray((err,result)=>{
-        if(err) throw err;
+app.get('/category', (req, res) => {
+    db.collection('category').find().toArray((err, result) => {
+        if (err) throw err;
         res.send(result)
     })
-   
+
 })
 
-app.get('/Subcategory',(req,res)=>{
-    db.collection('Subcategory').find().toArray((err,result)=>{
+
+// app.get('/Subcategory', (req, res) => {
+//     db.collection('Subcategory').find().toArray((err, result) => {
+//         if (err) throw err;
+//         res.send(result)
+//     })
+// })
+
+app.get('/Subcategory',(req,res) => {
+    let query = {}
+    let categoryId = Number(req.query.categoryId);
+    let subcategoryId = Number(req.query.subcategoryId);
+    if(categoryId){
+       query = {category_id:categoryId}
+    }else if(subcategoryId){
+         query = {"subcategory_id":subcategoryId}
+    } else {
+        query = {}
+    }
+    db.collection('Subcategory').find(query).toArray((err,result) => {
         if(err) throw err;
         res.send(result)
     })
-   
 })
 
-app.get('/product',(req,res)=>{
-    db.collection('product').find().toArray((err,result)=>{
+// app.get('/product', (req, res) => {
+//     db.collection('product').find().toArray((err, result) => {
+//         if (err) throw err;
+//         res.send(result)
+//     })
+
+// })
+
+
+app.get('/product',(req,res) => {
+    let query = {}
+    let categoryId = Number(req.query.categoryId);
+    let brandId = Number(req.query.brandId);
+    if(categoryId){
+       query = {category_id:categoryId}
+    }else if(brandId){
+         query = {"Brand.brand_id":brandId}
+    } else {
+        query = {}
+    }
+    db.collection('product').find(query).toArray((err,result) => {
         if(err) throw err;
         res.send(result)
     })
-   
 })
 
-app.get('/Carousel',(req,res)=>{
-    db.collection('Carousel').find().toArray((err,result)=>{
-        if(err) throw err;
+app.get('/Carousel', (req, res) => {
+    db.collection('Carousel').find().toArray((err, result) => {
+        if (err) throw err;
         res.send(result)
     })
-   
+
 })
 
-app.get('/snacks',(req,res)=>{
-    db.collection('Carousel').find().toArray((err,result)=>{
-        if(err) throw err;
+app.get('/snacks', (req, res) => {
+    db.collection('Carousel').find().toArray((err, result) => {
+        if (err) throw err;
         res.send(result)
     })
-   
+
 })
 
 
 // connection with db
-MongoClient.connect(MongoUrl,(err,client) =>{
-    if(err) console.log(`Error While Connecting`);
+MongoClient.connect(MongoUrl, (err, client) => {
+    if (err) console.log(`Error While Connecting`);
     db = client.db('MyProject2');
-    app.listen(port,() => {
+    app.listen(port, () => {
         console.log(`listening on port ${port}`);
     })
 })
-
-
-
-
