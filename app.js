@@ -50,7 +50,7 @@ app.get('/Subcategory',(req,res) => {
     } else {
         query = {}
     }
-    db.collection('Subcategory').find(query).toArray((err,result) => {
+    db.collection('product').find(query).toArray((err,result) => {
         if(err) throw err;
         res.send(result)
     })
@@ -105,6 +105,16 @@ app.get('/snacks', (req, res) => {
     })
 
 })
+// app.get('/details/:Id', (req, res) => {
+//     let Id=Number(req.params.Id)
+//      let subcategory_id=Id
+//     db.collection('product').find({subcategory_id}).toArray((err, result) => {
+//         if (err) throw err;
+//         res.send(result)
+//     })
+
+// })
+
 
 
 // connection with db
