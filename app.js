@@ -90,6 +90,14 @@ app.get('/Carousel', (req, res) => {
 
 })
 
+app.get('/grocery', (req, res) => {
+    db.collection('grocery').find().toArray((err, result) => {
+        if (err) throw err;
+        res.send(result)
+    })
+
+})
+
 app.get('/snacks', (req, res) => {
     db.collection('snacks').find().toArray((err, result) => {
         if (err) throw err;
