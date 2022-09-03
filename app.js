@@ -91,7 +91,7 @@ app.get('/Carousel', (req, res) => {
 })
 
 app.get('/snacks', (req, res) => {
-    db.collection('Carousel').find().toArray((err, result) => {
+    db.collection('snacks').find().toArray((err, result) => {
         if (err) throw err;
         res.send(result)
     })
