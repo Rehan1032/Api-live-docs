@@ -105,15 +105,15 @@ app.get('/snacks', (req, res) => {
     })
 
 })
-// app.get('/details/:Id', (req, res) => {
-//     let Id=Number(req.params.Id)
-//      let subcategory_id=Id
-//     db.collection('product').find({subcategory_id}).toArray((err, result) => {
-//         if (err) throw err;
-//         res.send(result)
-//     })
 
-// })
+app.get('/details', (req, res) => {
+    let productId=Number(req.query.productId)
+    db.collection('product').find({product_id:productId}).toArray((err, result) => {
+        if (err) throw err;
+        res.send(result)
+    })
+
+})
 
 
 
