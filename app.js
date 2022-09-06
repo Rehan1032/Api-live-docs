@@ -82,6 +82,16 @@ app.get('/product',(req,res) => {
     })
 })
 
+
+app.get('/menu/:id',(req,res)=>{
+    let id =  req.params.id;        
+    db.collection('product').find({subcategory_id:Number(id)}).toArray((err,result)=>{
+        if(err) throw err;
+        res.send(result)
+    })
+   
+})
+
 app.get('/Carousel', (req, res) => {
     db.collection('Carousel').find().toArray((err, result) => {
         if (err) throw err;
