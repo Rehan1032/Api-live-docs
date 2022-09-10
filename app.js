@@ -82,16 +82,6 @@ app.get('/product',(req,res) => {
     })
 })
 
-
-app.get('/menu/:id',(req,res)=>{
-    let id =  req.params.id;        
-    db.collection('product').find({subcategory_id:Number(id)}).toArray((err,result)=>{
-        if(err) throw err;
-        res.send(result)
-    })
-   
-})
-
 app.get('/Carousel', (req, res) => {
     db.collection('Carousel').find().toArray((err, result) => {
         if (err) throw err;
@@ -124,6 +114,48 @@ app.get('/details', (req, res) => {
     })
 
 })
+
+app.get(`/filter/:categoryId`,(req,res) => {
+    let query = {}
+  let categoryId = Number(req.params.categoryId);
+    let subcategoryId = Number(req.query.subcategoryId);
+    let lcost = Number(req.query.lcost);
+    let hcost = Number(req.query.hcost);
+
+    if(subcategoryId && lcost && hcost){
+        query = {
+            category_id:categoryId,
+
+         subcategory_id:subcategoryId,
+            $and:[{price:{$gt:lcost,$lt:hcost}}]
+        }
+    }
+    else if(subcategoryId){
+        query = {
+           category_id:categoryId,
+
+         subcategory_id:subcategoryId
+        }
+    }else if(lcost && hcost){
+        query = {
+            category_id:categoryId,
+            $and:[{price:{$gt:lcost,$lt:hcost}}]
+        }
+    }
+    else{
+        query = {
+           category_id:categoryId
+        
+    }
+}
+    db.collection('product').find(query).toArray((err,result) => {
+        if(err) throw err;
+        res.send(result)
+    })
+
+})
+
+
 
 
 
