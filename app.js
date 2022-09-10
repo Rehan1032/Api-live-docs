@@ -65,6 +65,8 @@ app.get('/Subcategory',(req,res) => {
 // })
 
 
+
+
 app.get('/product',(req,res) => {
     let query = {}
     let categoryId = Number(req.query.categoryId);
@@ -115,6 +117,14 @@ app.get('/details', (req, res) => {
 
 })
 
+app.get('/menu/:id',(req,res) => {
+    let id = Number(req.params.id)
+    db.collection('product').find({subcategory_id:id}).toArray((err,result) => {
+        if(err) throw err;
+        res.send(result)
+    })
+})
+
 app.get(`/filter/:categoryId`,(req,res) => {
     let query = {}
   let categoryId = Number(req.params.categoryId);
@@ -154,6 +164,8 @@ app.get(`/filter/:categoryId`,(req,res) => {
     })
 
 })
+
+
 
 
 
