@@ -184,6 +184,42 @@ app.post("/placeOrder",(req,res)=>{
     })
 })
 
+app.get('/orders',(req,res) => {
+    let email = req.query.email;
+    let query = {}
+    if(email){
+        query={email}
+    }
+    db.collection('orders').find(query).toArray((err,result) => {
+        if(err) throw err;
+        res.send(result)
+    })
+})
+
+app.put('/updateOrder/:id',(req,res) => {
+    let oid = Number(req.params.id);
+    db.collection('orders').updateOne(
+        {orderId:oid},
+        {
+            $set:{
+                "status":req.body.status,
+                "bank_name":req.body.bank_name,
+                "date":req.body.date,
+            }
+        },(err,result) => {
+            if(err) throw err;
+            res.send('Order Updated')
+        }
+    )
+})
+
+app.delete('/deleteOrder/:id',(req,res) => {
+    let _id = mongo.ObjectId(req.params.id);
+    db.collection('orders').remove({_id},(err,result) => {
+        if(err) throw err;
+        res.send('Order Deleted')
+    })
+})
 
 
 // connection with db
