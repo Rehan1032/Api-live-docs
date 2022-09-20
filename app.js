@@ -167,7 +167,7 @@ app.get(`/filter/:categoryId`,(req,res) => {
 
 app.post('/menuItem',(req,res) => {
     if(Array.isArray(req.body.id)){
-        db.collection('product').find({menu_id:{$in:req.body.id}}).toArray((err,result) => {
+        db.collection('product').find({subcategory_id:{$in:req.body.id}}).toArray((err,result) => {
             if(err) throw err;
             res.send(result)
         })
@@ -183,9 +183,6 @@ app.post("/placeOrder",(req,res)=>{
         res.send("Order Placed")
     })
 })
-
-
-
 
 
 
