@@ -184,7 +184,7 @@ app.post("/placeOrder",(req,res)=>{
     })
 })
 
-app.get('/orders',(req,res) => {
+app.get('/Orders',(req,res) => {
     let email = req.query.email;
     let query = {}
     if(email){
