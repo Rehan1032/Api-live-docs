@@ -165,6 +165,24 @@ app.get(`/filter/:categoryId`,(req,res) => {
 
 })
 
+app.post('/menuItem',(req,res) => {
+    if(Array.isArray(req.body.id)){
+        db.collection('product').find({menu_id:{$in:req.body.id}}).toArray((err,result) => {
+            if(err) throw err;
+            res.send(result)
+        })
+    }else{
+        res.send('Invalid Input')
+    }
+})
+
+
+app.post("/placeOrder",(req,res)=>{
+    db.collection('product').insert(req.body,(err,result)=>{
+        if(err)throw err;
+        res.send("Order Placed")
+    })
+})
 
 
 
