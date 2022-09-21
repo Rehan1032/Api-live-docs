@@ -177,10 +177,10 @@ app.post('/menuItem',(req,res) => {
 })
 
 
-app.post("/placeOrder",(req,res)=>{
-    db.collection('product').insert(req.body,(err,result)=>{
-        if(err)throw err;
-        res.send("Order Placed")
+app.post('/placeOrder',(req,res) => {
+    db.collection('orders').insert(req.body, (err,result) => {
+        if(err) throw err;
+        res.send('Order Placed')
     })
 })
 
